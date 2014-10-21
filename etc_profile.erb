@@ -1,0 +1,37 @@
+#   DO NOT DELETE THIS LINE     installed by chef
+# /etc/profile: system-wide .profile file for the Bourne shell (sh(1))
+# and Bourne compatible shells (bash(1), ksh(1), ash(1), ...).
+
+if [ -d /etc/profile.d ]; then
+  for i in /etc/profile.d/*.sh; do
+    if [ -r $i ]; then
+      . $i
+    fi
+  done
+  unset i
+fi
+
+if [ "$PS1" ]; then
+  if [ "$BASH" ]; then
+    PS1='\u@\h:\w\$ '
+    if [ -f /etc/bash.bashrc ]; then
+	. /etc/bash.bashrc
+    fi
+  else
+    if [ "`id -u`" -eq 0 ]; then
+      PS1='# '
+    else
+      PS1='$ '
+    fi
+  fi
+fi
+
+umask 022
+
+export JAVA_HOME="/usr/lib/jvm/java-6-openjdk/"
+export CLASSPATH="/usr/lib/jvm/java-6-openjdk/bin:/usr/share/java"
+export CENTRALCONFIG_LOCALPROPERTIES="/usr/local/vuk/localmachine.properties"
+export CENTRALCONFIG_DB="<%= @CENTRAL_CONFIG_MACHINE_IP %>:<%= @CENTRAL_CONFIG_MACHINE_PORT %>:config_user:game4vuk21:<%= @CENTRAL_CONFIG_DB %>:<%= @CENTRAL_CONFIG_TABLE %>"
+#export CENTRALCONFIG_DB="10.183.96.242:3306:config_user:game4vuk21"
+export LD_LIBRARY_PATH="/usr/local/lib/"
+export PYTHONPATH="/usr/lib/python2.6/site-packages/"
